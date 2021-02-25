@@ -1,6 +1,6 @@
 ---
 title: "Untitled"
-author: "Mason Putt"
+author: "Gayatri Pai, Natalee Morris, Mason Putt"
 date: "2/13/2021"
 output: html_document
 ---
