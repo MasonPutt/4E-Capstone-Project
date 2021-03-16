@@ -388,6 +388,19 @@ alldata1yr_17 <- cbind(laucnty_17, EvLab_17, CHAS_17, typologies) %>%
 
 alldata1yr <- rbind(alldata1yr_12, alldata1yr_17) %>%
   arrange(county_state)
+  
+alldata1yr <- rbind(alldata1yr_12, alldata1yr_17) %>%
+  arrange(county_state)
+
+alldata1yr$state <- sub('.*,\\s*', '', alldata1yr$county_state)
+
+alldata1yr <- alldata1yr %>%
+  select(1, 93, 2:92)
+
+alldata1yr$state <- abbr2state(alldata1yr$state)
+
+alldata1yr$county_state <- alldata1yr$county_state %>%
+  gsub("(.*),.*", "\\1", .)
 ```
 
 ### Matching and Joining Data - 5 year estimates
@@ -436,8 +449,16 @@ alldata5yr <- rbind(alldata5yr_12, alldata5yr_17) %>%
   select(1, 23, 3:6, 9:22, 25:89, 91:97) %>%
   arrange(county_state)
 
+alldata5yr$state <- sub('.*,\\s*', '', alldata5yr$county_state)
+
+alldata5yr <- alldata5yr %>%
+  select(1, 93, 2:92)
+
+alldata5yr$state <- abbr2state(alldata5yr$state)
+
+alldata5yr$county_state <- alldata5yr$county_state %>%
+  gsub("(.*),.*", "\\1", .)
+
 
 remove(EvLab_12, EvLab_17, EvLab_12_5, EvLab_17_5, alldata1yr_12, alldata1yr_17, alldata5yr_12, alldata5yr_17, laucnty_12, laucnty_12_5, laucnty_17, laucnty_17_5)
-
-write_csv(alldata5yr, "alldata5yr.csv")
 ```
