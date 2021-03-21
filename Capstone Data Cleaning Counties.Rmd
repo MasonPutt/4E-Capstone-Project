@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "Capstone Data Cleaning"
 author: "Gayatri Pai, Natalee Morris, Mason Putt"
 date: "2/13/2021"
 output: html_document
@@ -342,7 +342,7 @@ laucnty <- rbind(laucnty, c("Kalawao County, HI", 2008, NA, NA, NA, NA), c("Kala
 # Load data and rename variables
 
 typologies <- read_excel("Data/ERS/Typologies.xlsx", range = "A4:Q3147") %>%
-  select(stateabb=State, county=County_name, metro="Metro-nonmetro status, 2013 0=Nonmetro 1=Metro", farming_dep="Farming_2015_Update (allows overlap, 1=yes)", mining_dep="Mining_2015-Update (allows overlap, 1=yes)", manufac_dep="Manufacturing_2015_Update (allows overlap, 1=yes)", gov_dep="Government_2015_Update (allows overlap, 1=yes)", recreation_dep="Recreation_2015_Update (allows overlap, 1=yes)", nonspecialized="Nonspecialized_2015_Update (allows overlap, 1=yes)", low_educ="Low_Education_2015_Update")
+  select(stateabb=State, county=County_name, county_fips=FIPStxt, metro="Metro-nonmetro status, 2013 0=Nonmetro 1=Metro", farming_dep="Farming_2015_Update (allows overlap, 1=yes)", mining_dep="Mining_2015-Update (allows overlap, 1=yes)", manufac_dep="Manufacturing_2015_Update (allows overlap, 1=yes)", gov_dep="Government_2015_Update (allows overlap, 1=yes)", recreation_dep="Recreation_2015_Update (allows overlap, 1=yes)", nonspecialized="Nonspecialized_2015_Update (allows overlap, 1=yes)", low_educ="Low_Education_2015_Update")
 
 # Create merging key
 
@@ -350,7 +350,7 @@ typologies$county_state <- paste(typologies$county, typologies$stateabb ,sep=", 
   gsub("District of Columbia, DC", "District of Columbia", .)
 
 typologies <- typologies %>%
-  select(county_state, metro, farming_dep, mining_dep, manufac_dep, gov_dep, recreation_dep, nonspecialized, low_educ) %>%
+  select(county_state, county_fips, metro, farming_dep, mining_dep, manufac_dep, gov_dep, recreation_dep, nonspecialized, low_educ) %>%
   filter(county_state!="Wrangell City and Borough, AK", county_state!="Bedford City, VA")
 
 typologies$county_state <- typologies$county_state %>%
@@ -380,11 +380,11 @@ laucnty_17 <- filter(laucnty, year>2012) %>%
   arrange(year, county_state)
 
 alldata1yr_12 <- cbind(laucnty_12, EvLab_12, CHAS_12, typologies) %>%
-  select(1:6, 9:22, 25:89, 91:98) %>%
+  select(1, 91, 2:6, 9:22, 25:89, 92:99) %>%
   arrange(county_state)
 
 alldata1yr_17 <- cbind(laucnty_17, EvLab_17, CHAS_17, typologies) %>%
-  select(1:6, 9:22, 25:89, 91:98) %>%
+  select(1, 91, 2:6, 9:22, 25:89, 92:99) %>%
   arrange(county_state)
 
 alldata1yr <- rbind(alldata1yr_12, alldata1yr_17) %>%
@@ -393,7 +393,7 @@ alldata1yr <- rbind(alldata1yr_12, alldata1yr_17) %>%
 alldata1yr$state <- sub('.*,\\s*', '', alldata1yr$county_state)
 
 alldata1yr <- alldata1yr %>%
-  select(county=1, 94, 2:93)
+  select(county=1, 95, 2:94)
 
 alldata1yr$state <- abbr2state(alldata1yr$state)
 
@@ -444,14 +444,14 @@ alldata5yr_17 <- cbind(laucnty_17_5, EvLab_17_5, CHAS_17, typologies) %>%
   mutate(period=rep("2013-2017",3141))
 
 alldata5yr <- rbind(alldata5yr_12, alldata5yr_17) %>%
-  select(1, 23, 3:6, 9:22, 25:89, 91:98) %>%
+  select(1, 91, 23, 3:6, 9:22, 25:89, 92:99) %>%
   arrange(county_state)
 
 
 alldata5yr$state <- sub('.*,\\s*', '', alldata5yr$county_state)
 
 alldata5yr <- alldata5yr %>%
-  select(county=1, 94, 2:93)
+  select(county=1, 95, 2:94)
 
 alldata5yr$state <- abbr2state(alldata5yr$state)
 
@@ -462,4 +462,5 @@ alldata5yr$county <- alldata5yr$county %>%
 remove(EvLab_12, EvLab_17, EvLab_12_5, EvLab_17_5, alldata1yr_12, alldata1yr_17, alldata5yr_12, alldata5yr_17, laucnty_12, laucnty_12_5, laucnty_17, laucnty_17_5)
 
 write_csv(alldata1yr, "alldata1yr.csv")
+write_csv(alldata5yr, "alldata5yr.csv")
 ```
