@@ -528,15 +528,46 @@ alldata1yr$r_totalgap_rate <- alldata1yr$r_totalgap / alldata1yr$renter_occ
 alldata5yr$r_totalgap_rate <- alldata5yr$r_totalgap / alldata5yr$renter_occ
 
 
-# Rounding:
-alldata1yr[6:114] <- round(alldata1yr[6:114], 4)
-alldata5yr[6:114] <- round(alldata5yr[6:114], 4)
-
 # Rearranging:
 alldata1yr <- alldata1yr %>%
   select(1:2, 106, 3:4, 8, 107:114, 5:7, 9:105)
 alldata5yr <- alldata5yr %>%
   select(1:2, 106, 3:4, 8, 107:114, 5:7, 9:105)
+
+alldata1yr$poverty_rate<- alldata1yr$num.impovrished / alldata1yr$population
+alldata5yr$poverty_rate<- alldata5yr$num.impovrished / alldata5yr$population
+
+alldata1yr <- alldata1yr %>%
+  select(1:20, 115, 21:114)
+alldata5yr <- alldata5yr %>%
+  select(1:20, 115, 21:114)
+```
+
+## Adding College Enrollment Variable
+
+```{r}
+college <- read.csv("~/Desktop/ECON 2841 - Capstone/Data/college.csv") %>%
+  select(1:2)
+college$county_fips <- as.character(college$county_fips)
+college$county_fips <- ifelse(str_length(college$county_fips)==4, paste0("0", college$county_fips), college$county_fips)
+
+alldata5yr <- left_join(alldata5yr, college, by="county_fips") %>%
+  select(1:14, 116, 15:115)
+alldata1yr <- left_join(alldata1yr, college, by="county_fips") %>%
+  select(1:14, 116, 15:115)
+
+alldata5yr$college_rate <- alldata5yr$collegepop/alldata5yr$population
+alldata1yr$college_rate <- alldata1yr$collegepop/alldata1yr$population
+
+# Rearranging
+alldata1yr <- alldata1yr %>%
+  select(1:15, 117, 16:116)
+alldata5yr <- alldata5yr %>%
+  select(1:15, 117, 16:116)
+
+# Rounding:
+alldata1yr[6:117] <- round(alldata1yr[6:117], 4)
+alldata5yr[6:117] <- round(alldata5yr[6:117], 4)
 ```
 
 ## Save files 
