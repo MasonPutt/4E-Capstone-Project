@@ -26,7 +26,7 @@ Data Files:
 Analysis Files:
 * 4E Capstone Housing Analysis.ipynb: Completed analysis file containing background, descriptions of data, methods, modeling, results, and visualizations. R code can be viewed within the notbook using the "toggle on/off raw code" button. Best viewed vis NBViewer at: https://nbviewer.jupyter.org/github/MasonPutt/4E-Capstone-Project/blob/main/4E%20Capstone%20Housing%20Analysis.ipynb
 * Capstone Data Cleaning Counties.Rmd: R Markdown file used to clean and merge datasets. Data downloaded beforehand from the above source links.
-* Shortage_map.html: HTML link to chloropleth visualization of housing shortages.
+* Shortage_map.html: HTML link to choropleth visualization of housing shortages.
 
 ## Status
 Project is: _Completed_
