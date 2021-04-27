@@ -19,7 +19,7 @@ The Covid-19 global pandemic has brought about a wave of joblessness and housing
 ## Repo Documentation
 Data Files:
 * alldata1yr.csv: Contains merged data from [CHAS](https://www.huduser.gov/portal/datasets/cp.html#2006-2017_data), [Eviction Lab](https://evictionlab.org/map/#/2016?geography=states&type=er), [ERS](https://www.ers.usda.gov/), and [ACS](https://www.census.gov/topics/education/school-enrollment.html) in the form of 1-year estimates between 2008-2017.
-* alldata5yr.csv: Contains merged data from [CHAS](https://www.huduser.gov/portal/datasets/cp.html#2006-2017_data), [Eviction Lab](https://evictionlab.org/map/#/2016?geography=states&type=er), [ERS](https://www.ers.usda.gov/), and [ACS](https://www.census.gov/topics/education/school-enrollment.html) in the form of 5-year averages for the two periods 2008-2012 and 2013-2017.
+* alldata5yr.csv: Contains merged data from [CHAS](https://www.huduser.gov/portal/datasets/cp.html#2006-2017_data), [Eviction Lab](https://evictionlab.org/map/#/2016?geography=states&type=er), [ERS](https://www.ers.usda.gov/), and [ACS](https://www.census.gov/topics/education/school-enrollment.html) in the form of 5-year averages for the two periods 2008-2012 and 2013-2017 (this is the data that is used in analysis).
 * Data Dictionary.pdf: Complete documentation of all variables within the merged datasets - definitions, calculations, and original naming.
 
 Analysis Files:
